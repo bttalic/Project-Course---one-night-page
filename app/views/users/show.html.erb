@@ -1,0 +1,61 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+       <% if(@user.avatar?) %>
+        <td><%= image_tag@user.avatar.url, class:"avatar-small" %></td>
+        <% else %>
+        <td><%= image_tag("user_default.png",class:"avatar-small") %></td>
+        <% end %>
+      </br>
+        <%= @user.name %>
+      </h1>
+    </section>
+    <section>
+
+  <% if @user.officehours? %>
+  <h4>Office hours</h4>
+  <h5><%= @user.officehours %></h5>
+  <%end%>
+
+</br>
+
+<% if current_user==@user && @user.professor? %>
+  <div class="span2">
+  <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :officehours %>
+      <%= f.text_field :officehours %>
+      <%= f.submit "Change Office Hours", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+    </section>
+    <%end%>
+  </aside>
+  <div class="span8">
+
+<% if @courses_teaching.any? %>
+    <h3>Courses teaching</h3>
+    
+      <ul class="users">
+        <%= render @courses_teaching %>
+      </ul>
+  
+    <% end %>
+
+
+<% if @courses_taking.any? %>
+     <h3>Courses taking</h3>
+    
+      <ul class="users">
+        <%= render @courses_taking %>
+      </ul>
+      
+    <% end %>
+
+
+   
+  </div>
+</div>

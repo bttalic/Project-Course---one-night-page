@@ -1,0 +1,71 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1> Course Lecturer </br>
+       <% if(@user.avatar?) %>
+        <td><%= link_to image_tag(@user.avatar.url, class:"avatar-small"),@user %></td>
+        <% else %>
+        <td><%= link_to image_tag("user_default.png",class:"avatar-small"),@user %></td>
+        <% end %>
+      </br>
+        <%= link_to(@user.name, @user) %>
+      </h1>
+    </section>
+    <span>
+  <%= pluralize(@course.notifications.count, "notification") %>
+</br>
+  <%= pluralize(@course.coursefiles.count, "resources") %>
+</span>
+     <%= render 'shared/statscourse' %>
+      <%= render 'shared/notification_form' if (current_user == @user) %>
+    <%= render 'listen_form' if signed_in? %>
+  </aside>
+
+<div class="span9">
+
+
+<div class="center hero-unit" style="display:inline-block">
+  <h1><%= @course.name %></h1>
+  <h3><%= @course.coursecode %></h3>
+  <%= @course.description %> 
+</div>
+
+<%if @course.lock==false || (signed_in? && current_user.listening?(@course) )  || current_user==@course.user%>
+  <span class="span3 pull-left">
+    <h2> Resources </h2>
+    <% if @course.coursefiles.any? %>
+    <ol class="notifications">
+      <%= render @coursefiles %>
+    </ol>
+    <%= will_paginate @coursefiles, :params=>{"type"=>"micro"} %>
+    <% else %>
+    <div class="alert alert-warning">
+      No resources!
+    </div>
+    <% end %>
+     <%= render 'shared/coursefiles_form' if (current_user == @user) %>
+  </span>
+
+  <span class="span3 pull-right">
+    <h2>Notifications</h2>
+    <% if @course.notifications.any? %>
+    <ol class="notifications">
+      <%= render @notifications %>
+    </ol>
+    <%= will_paginate @notifications, :params=>{"type"=>"micro"} %>
+    <% else %>
+    <div class="alert alert-warning">
+     No notifications!
+    </div>
+    <% end %>
+  </span>
+
+  <%else%>
+   <div class="alert alert-warning">
+     This course allows notification and resource view only for students taking the course!
+    </div>
+<%end%>
+</div>
+ 
+</div>

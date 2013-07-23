@@ -1,0 +1,27 @@
+<%= provide(:title, 'Add Course') %>
+<h1>Add Course</h1>
+<% if  current_user.professor? %>
+<div class="row">
+    <div class="span6">
+        <%= form_for @course, :html => { :multipart => true }  do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :coursecode %>
+        <%= f.text_field :coursecode %>
+        <%= f.label :description %>
+        <div class="field">
+    <%= f.text_area :description , class:"input-xsmall"%>
+  </div>
+  <%= f.label :lock %>
+        <%=f.select(:lock, [['Available to all',false],['For students only',true]])%>
+         <%= f.label :code %>
+        <%= f.text_field :code %>
+    </br>
+    <%= f.submit "Add Course", class: "btn btn-large btn-primary" %>
+    <% end %>
+    
+
+</div>
+</div>
+<%end%>

@@ -1,0 +1,12 @@
+<li>
+  <span class="content"> <%= link_to coursefile.name+" (Download)", coursefile.file.url(false) %></br><%=coursefile.description %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(coursefile.created_at) %> ago.
+ 
+  <% if current_user?(coursefile.course.user) %>
+    <%= link_to "delete", coursefile, method: :delete,
+                                     data: { confirm: 'You sure?' },
+                                     title: coursefile.name %>
+  <% end %>
+</span>
+</li>

@@ -1,0 +1,31 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
+       
+      </section>
+    </aside>
+    <div class="span4 pull-left">
+      <h3>Notification Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+
+    <div class="span4 pull-right">
+      <h3>Resources Feed</h3>
+      <%= render 'shared/feed2' %>
+    </div>
+
+  </div>
+
+<% else %>
+<div class="center hero-unit">
+  <h1>You are not signed in!</h1>
+  <%= link_to "Sign in now!", signin_path, class: "btn btn-large btn-primary" %><%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-warning" %>
+</div>
+<% end %>

@@ -1,0 +1,8 @@
+
+  <div id="listen_form">
+  <% if current_user.listening?(@course) %>
+    <%= render 'unlisten' %>
+  <% else %>
+    <%= render 'listen' %>
+  <% end %>
+  </div>

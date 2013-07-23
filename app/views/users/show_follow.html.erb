@@ -1,0 +1,23 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="span4">
+   <section>
+      <% if(@user.avatar?) %>
+      <td><%= image_tag(@user.avatar.url,class:"avatar") %></td>
+      <% else %>
+      <td><%= image_tag("user_default.png",class:"avatar") %></td>
+      <% end %>
+      <h1><%= @user.name %></h1>
+      <span><%= link_to "view my profile", @user %></span>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3><%= @title %></h3>
+    <% if@courses .any? %>
+      <ul class="users">
+        <%= render @courses %>
+      </ul>
+      <%= will_paginate @courses%>
+    <% end %>
+  </div>
+</div>
